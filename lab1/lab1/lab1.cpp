@@ -27,19 +27,26 @@ public:
 
 void linkedList::add_Node(int n)
 {
-    Node* tmp = new Node;
-    tmp->data = n;
-    tmp->next = NULL;
+    try {
+        Node* tmp = new Node;
+        tmp->data = n;
+        tmp->next = NULL;
 
-    if (head == NULL)
-    {
-        head = tmp;
-        tail = tmp;
+        if (head == NULL)
+        {
+            head = tmp;
+            tail = tmp;
+        }
+        else
+        {
+            tail->next = tmp;
+            tail = tail->next;
+        }
     }
-    else
-    {
-        tail->next = tmp;
-        tail = tail->next;
+    catch (int e) {
+        cout << "Add Node error.\n";
+        cin.clear();
+        cin.ignore(256, '\n');
     }
 }
 
@@ -66,48 +73,59 @@ void linkedList::display() {
 
 void linkedList::ShellSort()
 {
-    if (head)
-    {
-        int step = 0;
-        int lenght = 0;
-        Node* p = head;
-        while (p)
+    try {
+        if (head)
         {
-            lenght++;
-            p = p->next;
-        }
-        while (2 * (3 * step + 1) <= lenght)
-            step = 3 * step + 1;
-        for (step; step > 0; step /= 3)
-            for (int i = step; i > 0; i--)
-                for (int j = step - i; j < lenght; j += step)
-                {
-                    p = head;
-                    int k;
-                    for (k = 0; k < j; k++)
-                        p = p->next;
-                    Node* c = p;
-                    int temp = k + step;
-                    while (c)
+            int step = 0;
+            int lenght = 0;
+            Node* p = head;
+            while (p)
+            {
+                lenght++;
+                p = p->next;
+            }
+            while (2 * (3 * step + 1) <= lenght)
+                step = 3 * step + 1;
+            for (step; step > 0; step /= 3)
+                for (int i = step; i > 0; i--)
+                    for (int j = step - i; j < lenght; j += step)
                     {
-                        for (k; k < temp;)
+                        p = head;
+                        int k;
+                        for (k = 0; k < j; k++)
+                            p = p->next;
+                        Node* c = p;
+                        int temp = k + step;
+                        while (c)
+                        {
+                            for (k; k < temp;)
+                                if (c)
+                                {
+                                    k++;
+                                    c = c->next;
+                                }
+                                else break;
                             if (c)
-                            {
-                                k++;
-                                c = c->next;
-                            }
-                            else break;
-                        if (c)
-                            if (p->data > c->data)
-                            {
-                                int t = p->data;
-                                p->data = c->data;
-                                c->data = t;
-                            }
-                        temp += step;
+                                if (p->data > c->data)
+                                {
+                                    int t = p->data;
+                                    p->data = c->data;
+                                    c->data = t;
+                                }
+                            temp += step;
+                        }
                     }
-                }
+        }
+        else {
+            throw 1;
+        }
     }
+    catch (int e) {
+        cout << "Linked list is empty. Nothing to sort\n";
+        cin.clear();
+        cin.ignore(256, '\n');
+    }
+   
     cout << "\nSorting is done!\n";
 }
 
