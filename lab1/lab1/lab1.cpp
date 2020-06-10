@@ -2,16 +2,18 @@
 
 using namespace std;
 
+template<class T>
 struct Node
 {
-    int data;
+    T data;
     Node* next;
 };
 
+template<class T>
 class linkedList
 {
 private:
-    Node* head, * tail;
+    Node<T> *head, * tail;
 public:
     linkedList()
     {
@@ -19,115 +21,107 @@ public:
         tail = NULL;
     }
 
-    void add_Node(int n);
-    void remove_Node();
-    void display();
-    void ShellSort();
-};
+    void add_Node(T value) {
+        try {
+            Node<T> *tmp = new Node<T>;
+            tmp->data = value;
+            tmp->next = NULL;
 
-void linkedList::add_Node(int n)
-{
-    try {
-        Node* tmp = new Node;
-        tmp->data = n;
-        tmp->next = NULL;
-
-        if (head == NULL)
-        {
-            head = tmp;
-            tail = tmp;
-        }
-        else
-        {
-            tail->next = tmp;
-            tail = tail->next;
-        }
-    }
-    catch (int e) {
-        cout << "Add Node error.\n";
-        cin.clear();
-        cin.ignore(256, '\n');
-    }
-}
-
-void linkedList::remove_Node()
-{
-    Node* elem;
-    if (head != NULL)
-    {
-        elem = head;
-        head = head->next;
-        cout << "Delete element " << head->data << endl;
-        delete elem;
-    }
-}
-
-void linkedList::display() {
-    Node* ptr;
-    ptr = head;
-    while (ptr != NULL) {
-        cout << ptr->data << "\t";
-        ptr = ptr->next;
-    }
-}
-
-void linkedList::ShellSort()
-{
-    try {
-        if (head)
-        {
-            int step = 0;
-            int lenght = 0;
-            Node* p = head;
-            while (p)
+            if (head == NULL)
             {
-                lenght++;
-                p = p->next;
+                head = tmp;
+                tail = tmp;
             }
-            while (2 * (3 * step + 1) <= lenght)
-                step = 3 * step + 1;
-            for (step; step > 0; step /= 3)
-                for (int i = step; i > 0; i--)
-                    for (int j = step - i; j < lenght; j += step)
-                    {
-                        p = head;
-                        int k;
-                        for (k = 0; k < j; k++)
-                            p = p->next;
-                        Node* c = p;
-                        int temp = k + step;
-                        while (c)
+            else
+            {
+                tail->next = tmp;
+                tail = tail->next;
+            }
+        }
+        catch (int e) {
+            cout << "Add Node error.\n";
+            cin.clear();
+            cin.ignore(256, '\n');
+        }
+    }
+
+    void remove_Node() {
+        Node<T> *elem;
+        if (head != NULL)
+        {
+            elem = head;
+            head = head->next;
+            cout << "Delete element " << head->data << endl;
+            delete elem;
+        }
+    }
+
+    void display() {
+        Node<T> *ptr;
+        ptr = head;
+        while (ptr != NULL) {
+            cout << ptr->data << "\t";
+            ptr = ptr->next;
+        }
+    }
+
+    void ShellSort() {
+        try {
+            if (head)
+            {
+                int step = 0;
+                int lenght = 0;
+                Node<T> *p = head;
+                while (p)
+                {
+                    lenght++;
+                    p = p->next;
+                }
+                while (2 * (3 * step + 1) <= lenght)
+                    step = 3 * step + 1;
+                for (step; step > 0; step /= 3)
+                    for (int i = step; i > 0; i--)
+                        for (int j = step - i; j < lenght; j += step)
                         {
-                            for (k; k < temp;)
+                            p = head;
+                            int k;
+                            for (k = 0; k < j; k++)
+                                p = p->next;
+                            Node<T> *c = p;
+                            int temp = k + step;
+                            while (c)
+                            {
+                                for (k; k < temp;)
+                                    if (c)
+                                    {
+                                        k++;
+                                        c = c->next;
+                                    }
+                                    else break;
                                 if (c)
-                                {
-                                    k++;
-                                    c = c->next;
-                                }
-                                else break;
-                            if (c)
-                                if (p->data > c->data)
-                                {
-                                    int t = p->data;
-                                    p->data = c->data;
-                                    c->data = t;
-                                }
-                            temp += step;
+                                    if (p->data > c->data)
+                                    {
+                                        int t = p->data;
+                                        p->data = c->data;
+                                        c->data = t;
+                                    }
+                                temp += step;
+                            }
                         }
-                    }
+            }
+            else {
+                throw 1;
+            }
         }
-        else {
-            throw 1;
+        catch (int e) {
+            cout << "Linked list is empty. Nothing to sort\n";
+            cin.clear();
+            cin.ignore(256, '\n');
         }
+
+        cout << "\nSorting is done!\n";
     }
-    catch (int e) {
-        cout << "Linked list is empty. Nothing to sort\n";
-        cin.clear();
-        cin.ignore(256, '\n');
-    }
-   
-    cout << "\nSorting is done!\n";
-}
+};
 
 void invalidInput(int e)
 {
@@ -139,7 +133,7 @@ void invalidInput(int e)
 void main()
 {
     int size = 0, tmpData;
-    linkedList list;
+    linkedList<int> list;
 
     while (size == 0)
     {
