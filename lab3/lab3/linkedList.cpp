@@ -68,23 +68,45 @@ struct linkedList {
     }
 
     void sort(function<bool(T, T)> comparator) {
-        bool swapped;
-        Node<T>* current;
-        int lastSortedIndex = size - 1;
-        do {
-            swapped = false;
-            current = first;
-            for (int i = 0; i < lastSortedIndex; i++) {
-                if (comparator(current->value, current->next->value)) {
-                    T temp = current->value;
-                    current->value = current->next->value;
-                    current->next->value = temp;
-                    swapped = true;
+        int step = 0;
+        int lenght = 0;
+        Node<T>* p = first;
+        while (p)
+        {
+            lenght++;
+            p = p->next;
+        }
+        while (2 * (3 * step + 1) <= lenght)
+            step = 3 * step + 1;
+        for (step; step > 0; step /= 3)
+            for (int i = step; i > 0; i--)
+                for (int j = step - i; j < lenght; j += step)
+                {
+                    p = first;
+                    int k;
+                    for (k = 0; k < j; k++)
+                        p = p->next;
+                    Node<T>* c = p;
+                    int temp = k + step;
+                    while (c)
+                    {
+                        for (k; k < temp;)
+                            if (c)
+                            {
+                                k++;
+                                c = c->next;
+                            }
+                            else break;
+                        if (c)
+                            if (comparator(c->value, c->next->value))
+                            {
+                                T temp = c->value;
+                                c->value = c->next->value;
+                                c->next->value = temp;
+                            }
+                        temp += step;
+                    }
                 }
-                current = current->next;
-            }
-            lastSortedIndex--;
-        } while (swapped);
     }
 
     linkedList<T> filter(function<bool(T)> predicate) {
