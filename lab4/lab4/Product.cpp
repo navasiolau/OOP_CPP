@@ -163,4 +163,63 @@ struct Product {
         file.write(reinterpret_cast<char*>(this), sizeof(Product));
         file.close();
     }
+
+    bool sort_true()
+    {
+        fstream file_2;
+        file_2.open("FILE.DAT", ios::binary | ios::in | ios::out);
+        Product* s;
+        int one = 0;
+        bool flag = true;
+        file_2.seekg(0 | ios::beg);
+        while (1)
+        {
+            s = new Product[2];
+            if (file_2.eof()) break;
+            file_2.seekg(one * sizeof(Product));
+            file_2.read(reinterpret_cast<char*>(&s[0]), sizeof(Product));
+            if (file_2.eof()) break;
+            file_2.read(reinterpret_cast<char*>(&s[1]), sizeof(Product));
+            if (s[0].count > s[1].count && s[1].category != "" && s[1].fio != "" && s[1].name != "")
+            {
+                flag = false;
+                break;
+            }
+            one++;
+        }
+        file_2.close();
+        return flag;
+    }
+
+    void sort_two()
+    {
+        Product* s;
+        int one = 0;
+        bool proverka = false;
+        file.open("FILE.DAT", ios::binary | ios::in | ios::out);
+        while (1)
+        {
+            s = new Product[2];
+            if (file.eof()) break;
+            file.seekg(one * sizeof(Product));
+            file.read(reinterpret_cast<char*>(&s[0]), sizeof(Product));
+            if (file.eof()) break;
+            file.read(reinterpret_cast<char*>(&s[1]), sizeof(Product));
+            if (s[0].count > s[1].count)
+            {
+                file.seekp(one * sizeof(Product));
+                file.write(reinterpret_cast<char*>(&s[1]), sizeof(Product));
+                file.write(reinterpret_cast<char*>(&s[0]), sizeof(Product));
+            }
+            one++;
+        }
+        file.close();
+        proverka = sort_true();
+        if (proverka == false)
+        {
+            cout << "----------------------- Resual after iteration ----------------------" << endl;
+            getProductBat(0);
+            cout << "------------------------------------------------------------------------------------------" << endl;
+        }
+    }
 };
