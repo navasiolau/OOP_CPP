@@ -56,6 +56,17 @@ public:
         }
     }
 
+    void search(T value) {
+        Node<T> * ptr = head;
+        while (ptr != NULL) {
+            if (ptr->data == value) {
+                cout << "\nElement by value: " << ptr->data << endl;
+            }
+            ptr = ptr->next;
+        }
+       
+    }
+
     void display() {
         Node<T> *ptr;
         ptr = head;
@@ -130,9 +141,9 @@ void invalidInput(int e)
     cin.ignore(256, '\n');
 }
 
-void main()
+int main()
 {
-    int size = 0, tmpData;
+    int size = 0, tmpData, searchValue;
     linkedList<int> list;
 
     while (size == 0)
@@ -164,4 +175,10 @@ void main()
     list.display();
     list.ShellSort();
     list.display();
+
+    cout << "\nValue for search: ";
+    cin >> searchValue;
+    list.search(searchValue);
+
+    return 0;
 }
