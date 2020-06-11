@@ -13,8 +13,8 @@ struct animal {
 };
 
 ostream& operator<<(ostream& os, const animal& animal) {
-    os.unsetf(ios_base::basefield);
-    os.setf(ios_base::hex);
+  /*  os.unsetf(ios_base::basefield);
+    os.setf(ios_base::hex);*/
     os << "name: " << animal.name 
        << "; kind: " << animal.kind 
        << "; color: " << animal.color 
@@ -25,21 +25,21 @@ ostream& operator<<(ostream& os, const animal& animal) {
     return os;
 }
 
-istream& operator>>(istream& in, animal& a) {
+istream& operator>>(istream& in, animal& animal) {
     cout << "name ";
-    in >> a.name;
+    in >> animal.name;
     cout << "kind ";
-    in >> a.kind;
+    in >> animal.kind;
     cout << "color ";
-    in >> a.color;
+    in >> animal.color;
     cout << "country ";
-    in >> a.country;
+    in >> animal.country;
     cout << "height ";
-    in >> a.height;
+    in >> animal.height;
     cout << "weight ";
-    in >> a.weight;
+    in >> animal.weight;
     cout << "price ";
-    in >> a.price;
+    in >> animal.price;
     return in;
 }
 
@@ -49,12 +49,14 @@ int main() {
 
     cout << "------------------------------------- Base output ------------------------------------\n";
     cout << cow;
-    cout.setf(ios_base::hex, ios_base::basefield);
-    cout << "\n\n---------------------------- ios_base::hex, ios_base::basefield -----------------------------\n";
+    cout.unsetf(ios_base::basefield);
+    cout.setf(ios_base::hex);
+    cout << "\n\n---------------------------- ios_base::hex -----------------------------\n";
     cout << cow;
     cout.setf(ios_base::uppercase);
     cout << "\n\n------------------------------ ios_base::uppercase -----------------------------------\n";
     cout << cow;
+    cout.unsetf(ios_base::basefield);
     cout.setf(ios_base::oct);
     cout << "\n\n------------------------------ ios_base::oct -----------------------------------\n";
     cout << cow;
