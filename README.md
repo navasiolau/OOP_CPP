@@ -19,13 +19,13 @@ Download the repository and go to the directory with the code you are interested
 
 ## List of labs
 
-- [Lab1](#lab1)
-- [Lab2](#lab2)
-- [Lab3](#lab3)
-- [Lab4](#lab4)
-- [Lab5](#lab5)
-- [Lab6](#lab6)
-- [Lab7](#lab7)
-- [Lab8](#lab8)
+- [Lab1](https://github.com/navasiolau/OOP_CPP/tree/master/lab1)
+- [Lab2](https://github.com/navasiolau/OOP_CPP/tree/master/lab2)
+- [Lab3](https://github.com/navasiolau/OOP_CPP/tree/master/lab3)
+- [Lab4](https://github.com/navasiolau/OOP_CPP/tree/master/lab4)
+- [Lab5](https://github.com/navasiolau/OOP_CPP/tree/master/lab5)
+- [Lab6](https://github.com/navasiolau/OOP_CPP/tree/master/lab6)
+- [Lab7](https://github.com/navasiolau/OOP_CPP/tree/master/lab7)
+- [Lab8](https://github.com/navasiolau/OOP_CPP/tree/master/lab8)
 
 ## You can thank the author by putting a star repository
