@@ -27,19 +27,14 @@ struct LinkedList {
 
     bool contains(T value);
 
-    //void sort(std::function<bool(T, T)> comparator);
+    void sort(std::function<bool(T, T)> comparator);
 
-    void insertationSort(std::function<bool(T, T)> comparator);
+    void insertationSort(Node<T>** head_ref);
+    void sortedInsert(Node<T>** head_ref, Node<T>* new_node);
 
     LinkedList<T> filter(std::function<bool(T)> predicate);
 
     void print() const;
-
-    //void quickSort(std::function<bool(T, T)> comparator);
-
-    //void _quickSort(Node<T>* l, Node<T>* h, std::function<bool(T, T)> comparator);
-
-    //Node<T>* partition(Node<T>* l, Node<T>* h, std::function<bool(T, T)> comparator);
 
     void swap(T* a, T* b);
     bool equalValue(T* a, T* b);
@@ -96,7 +91,6 @@ struct LinkedList {
     void printFromStartToEnd(iterator start) const;
     void findDiff(iterator start2, std::function<bool(T, T)> comparator);
     void setValues(iterator searchIt, T value);
-    //void printFromEndToStart(iterator end) const;
 };
 
 #endif //INC_5_LINKED_LIST_H

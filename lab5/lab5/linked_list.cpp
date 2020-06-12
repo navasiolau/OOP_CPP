@@ -4,12 +4,6 @@
 
 using namespace std;
 
-//template<class T>
-//Node<T>::Node(T value, Node<T>* next) {
-//    this->value = value;
-//    this->next = next;
-//}
-
 template<class T>
 LinkedList<T>::LinkedList() {
     Node<T>* first = NULL;
@@ -60,46 +54,99 @@ bool LinkedList<T>::contains(T value) {
     return false;
 }
 
+template<class T>
+void LinkedList<T>::sort(function<bool(T, T)> comparator) {
+    bool swapped;
+    Node<T>* current;
+    int lastSortedIndex = size - 1;
+    do {
+        swapped = false;
+        current = first;
+        for (int i = 0; i < lastSortedIndex; i++) {
+            if (comparator(current->value, current->next->value)) {
+                T temp = current->value;
+                current->value = current->next->value;
+                current->next->value = temp;
+                swapped = true;
+            }
+            current = current->next;
+        }
+        lastSortedIndex--;
+    } while (swapped);
+}
+
 //template<class T>
-//void LinkedList<T>::sort(function<bool(T, T)> comparator) {
-//    bool swapped;
-//    Node<T>* current;
-//    int lastSortedIndex = size - 1;
-//    do {
-//        swapped = false;
-//        current = first;
-//        for (int i = 0; i < lastSortedIndex; i++) {
-//            if (comparator(current->value, current->next->value)) {
-//                T temp = current->value;
-//                current->value = current->next->value;
-//                current->next->value = temp;
-//                swapped = true;
-//            }
-//            current = current->next;
+//void LinkedList<T>::insertationSort(function<bool(T, T)> comparator) {
+//    LinkedList<T> tmpStack;
+//
+//    while (this->size != 0) {
+//        Node<T>* tmp = this->first;
+//        this->popNode();
+//
+//        while (tmpStack.size != 0 && comparator(tmpStack.first->value, tmp->value))
+//        {
+//            this->addNode(tmpStack.first->value);
+//            tmpStack.popNode();
 //        }
-//        lastSortedIndex--;
-//    } while (swapped);
+//        this->print();
+//        cout << "\n";
+//        tmpStack.addNode(tmp->value);
+//    }
+//
+//    *this = tmpStack;
 //}
 
+// function to sort a singly linked list using insertion sort
 template<class T>
-void LinkedList<T>::insertationSort(function<bool(T, T)> comparator) {
-    LinkedList<T> tmpStack;
+void  LinkedList<T>::insertationSort(Node<T>** head_ref)
+{
+    // Initialize sorted linked list 
+    Node<T>* sorted = NULL;
 
-    while (this->size != 0) {
-        Node<T>* tmp = this->first;
-        this->popNode();
+    // Traverse the given linked list and insert every 
+    // node to sorted 
+    Node<T>* current = *head_ref;
+    while (current != NULL)
+    {
+        // Store next for next iteration 
+        Node<T>* next = current->next;
 
-        while (tmpStack.size != 0 && comparator(tmpStack.first->value, tmp->value))
-        {
-            this->addNode(tmpStack.first->value);
-            tmpStack.popNode();
-        }
-        this->print();
-        cout << "\n";
-        tmpStack.addNode(tmp->value);
+        // insert current in sorted linked list 
+        sortedInsert(&sorted, current);
+
+        // Update current 
+        current = next;
     }
 
-    *this = tmpStack;
+    // Update head_ref to point to sorted linked list 
+    *head_ref = sorted;
+}
+
+/* function to insert a new_node in a list. Note that this
+  function expects a pointer to head_ref as this can modify the
+  head of the input linked list (similar to push())*/
+template<class T>
+void LinkedList<T>::sortedInsert(Node<T>** head_ref, Node<T>* new_node)
+{
+    Node<T>* current;
+    /* Special case for the head end */
+    if (*head_ref == NULL || (*head_ref)->value >= new_node->value)
+    {
+        new_node->next = *head_ref;
+        *head_ref = new_node;
+    }
+    else
+    {
+        /* Locate the node before the point of insertion */
+        current = *head_ref;
+        while (current->next != NULL &&
+            current->next->value < new_node->value)
+        {
+            current = current->next;
+        }
+        new_node->next = current->next;
+        current->next = new_node;
+    }
 }
 
 template<class T>
@@ -107,7 +154,7 @@ void LinkedList<T>::findDiff(iterator start2, function<bool(T, T)> comparator) {
     auto i2 = start2;
     for (auto i1 = begin() ; i1 != NULL; i1++) {
         if (i1.nodePtr != i2.nodePtr) {
-            cout << "First diff element: " << i2.nodePtr->value << ' ' << endl; 
+            cout << "First diff element:\t" << i2.nodePtr->value << ' ' << endl; 
             break;
         }
         i2++;
@@ -117,16 +164,9 @@ void LinkedList<T>::findDiff(iterator start2, function<bool(T, T)> comparator) {
 template<class T>
 void LinkedList<T>::setValues(iterator searchIt, T value) {
     auto i2 = searchIt;
-    cout << "SearchIt->value: " << i2.nodePtr->value << endl;
-    cout << "Value - " << value << endl;
-    for (auto i1 = begin(); i1 != NULL; i1++) {
-        if (equalValue(&i1.nodePtr->value, &i2.nodePtr->value)) {
-            cout << "in if state: " << i2.nodePtr->value << endl;
-            //cout << "Element for search: " << i2.nodePtr->value << ' ' << endl;
-            //cout << "Element for replace: " << i1.nodePtr->value << ' ' << endl;
-            i1.nodePtr->value = value;
-        }
-    }
+    cout << "Desired value:\t\t" << i2.nodePtr->value << endl;
+    cout << "Value for replace:\t" << value << endl;
+    for (auto i1 = begin(); i1 != NULL; i1++) if (equalValue(&i1.nodePtr->value, &i2.nodePtr->value)) i1.nodePtr->value = value;
 }
 
 template<class T>

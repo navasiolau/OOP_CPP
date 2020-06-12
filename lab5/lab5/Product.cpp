@@ -20,9 +20,15 @@ struct Product {
     bool operator==(const Product& other) const {
         return category == other.category && fio == other.fio && name == other.name && count == other.count;
     }
-    //Product(string category, string fio, string name, int count) : category(std::move(category)), fio(std::move(fio)), name(std::move(name)), count(count) {
 
-    //}
+    bool operator>=(const Product& other) const {
+        return count >= other.count;
+    }
+
+    bool operator<(const Product& other) const {
+        return count < other.count;
+    }
+
     Product(string category, string fio, string name, int count) {
         this->category = category;
         this->fio = fio;
