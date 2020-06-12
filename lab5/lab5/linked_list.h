@@ -31,6 +31,10 @@ struct LinkedList {
 
     void sort(std::function<bool(T, T)> comparator);
 
+    void insertationSort(std::function<bool(T, T)> comparator);
+
+    void findDiff(LinkedList<T> stack1, LinkedList<T> stack2);
+
     LinkedList<T> filter(std::function<bool(T)> predicate);
 
     void print() const;
