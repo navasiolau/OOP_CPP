@@ -9,8 +9,6 @@ struct Node {
     T value;
 
     Node* next;
-
-    //Node(T value, Node<T>* next);
 };
 
 template<class T>
@@ -29,11 +27,9 @@ struct LinkedList {
 
     bool contains(T value);
 
-    void sort(std::function<bool(T, T)> comparator);
+    //void sort(std::function<bool(T, T)> comparator);
 
     void insertationSort(std::function<bool(T, T)> comparator);
-
-    void findDiff(LinkedList<T> stack1, LinkedList<T> stack2);
 
     LinkedList<T> filter(std::function<bool(T)> predicate);
 
@@ -46,6 +42,7 @@ struct LinkedList {
     //Node<T>* partition(Node<T>* l, Node<T>* h, std::function<bool(T, T)> comparator);
 
     void swap(T* a, T* b);
+    bool equalValue(T* a, T* b);
 
     struct iterator {
         friend class LinkedList;
@@ -58,6 +55,10 @@ struct LinkedList {
 
         bool operator!=(const iterator& itr) const {
             return nodePtr != itr.nodePtr;
+        }
+
+        bool operator==(const iterator& itr) const {
+            return nodePtr == itr.nodePtr;
         }
 
         T& operator*() const {
@@ -93,7 +94,8 @@ struct LinkedList {
     }
 
     void printFromStartToEnd(iterator start) const;
-
+    void findDiff(iterator start2, std::function<bool(T, T)> comparator);
+    void setValues(iterator searchIt, T value);
     //void printFromEndToStart(iterator end) const;
 };
 

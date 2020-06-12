@@ -85,11 +85,11 @@ template<class T>
 void LinkedList<T>::insertationSort(function<bool(T, T)> comparator) {
     LinkedList<T> tmpStack;
 
-    while (this->size != NULL) {
+    while (this->size != 0) {
         Node<T>* tmp = this->first;
         this->popNode();
 
-        while (tmpStack.size != NULL && comparator(tmpStack.first->value, tmp->value))
+        while (tmpStack.size != 0 && comparator(tmpStack.first->value, tmp->value))
         {
             this->addNode(tmpStack.first->value);
             tmpStack.popNode();
@@ -103,28 +103,30 @@ void LinkedList<T>::insertationSort(function<bool(T, T)> comparator) {
 }
 
 template<class T>
-void LinkedList<T>::findDiff(LinkedList<T> stack1, LinkedList<T> stack2) {
-    cout << "Stack1:\n";
-    stack1.print();
-    cout << "\n";
-
-    cout << "Stack2:\n";
-    stack2.print();
-    cout << "\n";
-    /*while (stack1.size != NULL) {
-        
-        Node<T>* tmp = this->first;
-        this->popNode();
-
-        while (tmpStack.size != NULL && comparator(tmpStack.first->value, tmp->value))
-        {
-            this->addNode(tmpStack.first->value);
-            tmpStack.popNode();
+void LinkedList<T>::findDiff(iterator start2, function<bool(T, T)> comparator) {
+    auto i2 = start2;
+    for (auto i1 = begin() ; i1 != NULL; i1++) {
+        if (i1.nodePtr != i2.nodePtr) {
+            cout << "First diff element: " << i2.nodePtr->value << ' ' << endl; 
+            break;
         }
-        this->print();
-        cout << "\n";
-        tmpStack.addNode(tmp->value);
-    }*/
+        i2++;
+    }
+}
+
+template<class T>
+void LinkedList<T>::setValues(iterator searchIt, T value) {
+    auto i2 = searchIt;
+    cout << "SearchIt->value: " << i2.nodePtr->value << endl;
+    cout << "Value - " << value << endl;
+    for (auto i1 = begin(); i1 != NULL; i1++) {
+        if (equalValue(&i1.nodePtr->value, &i2.nodePtr->value)) {
+            cout << "in if state: " << i2.nodePtr->value << endl;
+            //cout << "Element for search: " << i2.nodePtr->value << ' ' << endl;
+            //cout << "Element for replace: " << i1.nodePtr->value << ' ' << endl;
+            i1.nodePtr->value = value;
+        }
+    }
 }
 
 template<class T>
@@ -150,6 +152,15 @@ void LinkedList<T>::swap(T* a, T* b) {
     T t = *a;
     *a = *b;
     *b = t;
+}
+
+template<class T>
+bool LinkedList<T>::equalValue(T *a, T *b) {
+    if (*a == *b)
+    {
+        return true;
+    }
+    return false;
 }
 
 template<class T>
