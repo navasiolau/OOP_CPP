@@ -26,7 +26,7 @@ void findDiff(T vector1, T1 vector2) {
 }
 
 template<class T, class T1, class T2>
-T setValues(T vector1, T1 searchValue, T2 replaceValue) {
+void setValues(T &vector1, T1 searchValue, T2 replaceValue) {
     cout << "Desired value:\t\t" << searchValue << endl;
     cout << "Value for replace:\t" << replaceValue << endl;
     for (auto i = vector1.begin(); i < vector1.end(); i++) {
@@ -35,8 +35,6 @@ T setValues(T vector1, T1 searchValue, T2 replaceValue) {
             *i = replaceValue;
         }
     }
-
-    return vector1;
 }
 
 template<class T>
@@ -92,12 +90,14 @@ int main()
 
     Product forSearch("B", to_string(1), to_string(1), 31);
     Product forReplace("C", to_string(1), to_string(4), 88);
-    vector1 = setValues(vector1, forSearch, forReplace);
+    setValues(vector1, forSearch, forReplace);
     cout << "Vector1 after replace:" << endl;
     print(vector1);
+
     cout << "Vector1 after insertion sort: " << endl;
     insertionSort(vector1);
     print(vector1);
+
     cout << "Vector2 after insertion sort: " << endl;
     insertionSort(vector2);
     print(vector2);
