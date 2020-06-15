@@ -108,7 +108,7 @@ void LinkedList<T>::sortedInsert(Node<T>** head_ref, Node<T>* new_node)
 }
 
 template<class T>
-void LinkedList<T>::findDiff(iterator start2, function<bool(T, T)> comparator) {
+void LinkedList<T>::findDiff(iterator start2) {
     auto i2 = start2;
     for (auto i1 = begin() ; i1 != NULL; i1++) {
         if (i1.nodePtr != i2.nodePtr) {

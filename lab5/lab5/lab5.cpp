@@ -35,7 +35,7 @@ int main()
     stack.insertationSort(&stack.first);
     stack.print();
     cout << "\nSearch first diff element in stack1" << endl;
-    stack.findDiff(stack1.begin(), Product::sortByCount());
+    stack.findDiff(stack1.begin());
     cout << "\t" << endl;
     Product forSearch("B", to_string(1), to_string(1), 31);
     tmpStack.addNode(forSearch);

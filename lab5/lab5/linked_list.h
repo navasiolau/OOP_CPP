@@ -87,7 +87,7 @@ struct LinkedList {
     }
 
     void printFromStartToEnd(iterator start) const;
-    void findDiff(iterator start2, std::function<bool(T, T)> comparator);
+    void findDiff(iterator start2);
     void setValues(iterator searchIt, T value);
 };
 
