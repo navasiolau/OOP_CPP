@@ -32,8 +32,6 @@ int main()
     cout << "Stack2:" << endl;
     stack1.print();
     cout << "Sorted steck1: " << endl;
-   /* stack.sort(Product::sortByCount());
-    stack.print();*/
     stack.insertationSort(&stack.first);
     stack.print();
     cout << "\nSearch first diff element in stack1" << endl;

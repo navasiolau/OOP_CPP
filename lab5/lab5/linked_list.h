@@ -27,8 +27,6 @@ struct LinkedList {
 
     bool contains(T value);
 
-    void sort(std::function<bool(T, T)> comparator);
-
     void insertationSort(Node<T>** head_ref);
     void sortedInsert(Node<T>** head_ref, Node<T>* new_node);
 

@@ -54,48 +54,6 @@ bool LinkedList<T>::contains(T value) {
     return false;
 }
 
-template<class T>
-void LinkedList<T>::sort(function<bool(T, T)> comparator) {
-    bool swapped;
-    Node<T>* current;
-    int lastSortedIndex = size - 1;
-    do {
-        swapped = false;
-        current = first;
-        for (int i = 0; i < lastSortedIndex; i++) {
-            if (comparator(current->value, current->next->value)) {
-                T temp = current->value;
-                current->value = current->next->value;
-                current->next->value = temp;
-                swapped = true;
-            }
-            current = current->next;
-        }
-        lastSortedIndex--;
-    } while (swapped);
-}
-
-//template<class T>
-//void LinkedList<T>::insertationSort(function<bool(T, T)> comparator) {
-//    LinkedList<T> tmpStack;
-//
-//    while (this->size != 0) {
-//        Node<T>* tmp = this->first;
-//        this->popNode();
-//
-//        while (tmpStack.size != 0 && comparator(tmpStack.first->value, tmp->value))
-//        {
-//            this->addNode(tmpStack.first->value);
-//            tmpStack.popNode();
-//        }
-//        this->print();
-//        cout << "\n";
-//        tmpStack.addNode(tmp->value);
-//    }
-//
-//    *this = tmpStack;
-//}
-
 // function to sort a singly linked list using insertion sort
 template<class T>
 void  LinkedList<T>::insertationSort(Node<T>** head_ref)
